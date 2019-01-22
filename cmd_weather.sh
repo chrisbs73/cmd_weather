@@ -2,15 +2,36 @@
 
 source openweathermap.key
 
+function usage() { echo "Usage: $0 -z ZIP_CODE -k(Optional) API_KEY" 1>&2; exit 1; }
+
+OPTIND=1
+
+while getopts "h?k:z:" opt; do
+    case "$opt" in 
+        z) 
+            ZIPCODE=$OPTARG
+            ;;
+        k)
+            APIKEY=$OPTARG
+            ;;
+        h|\?\*)
+            usage
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+if [[ -z $ZIPCODE ]]; then usage; fi
+
 #Current weather by zipcode
 function get_current_weather() {
-    #current_weather=$(curl -s "http://api.openweathermap.org/data/2.5/weather?zip=97123,us&APPID=$APIKEY&units=imperial")
-    current_weather=$(cat cur_weather.txt)
+    current_weather=$(curl -s "http://api.openweathermap.org/data/2.5/weather?zip=$ZIPCODE,us&APPID=$APIKEY&units=imperial")
+    #current_weather=$(cat cur_weather.txt)
 }
 
 #5day Forcast
 function get_5day_forcast() {
-    #five_day_forcast=$(curl -s "http://api.openweathermap.org/data/2.5/forecast?zip=94040,us&APPID=$APIKEY&units=imperial")
+    #five_day_forcast=$(curl -s "http://api.openweathermap.org/data/2.5/forecast?zip=$ZIPCODE,us&APPID=$APIKEY&units=imperial")
     five_day_forcast=$(cat five_day.txt)
 }
 
