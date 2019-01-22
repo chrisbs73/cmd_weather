@@ -1,0 +1,38 @@
+chrisbs@yourtilde:10:[~/code/weather]: cat current.txt | jq '.weather'
+[
+  {
+    "id": 500,
+    "main": "Rain",
+    "description": "light rain",
+    "icon": "10n"
+  },
+  {
+    "id": 701,
+    "main": "Mist",
+    "description": "mist",
+    "icon": "50n"
+  }
+]
+
+chrisbs@yourtilde:10:[~/code/weather]: cat current.txt | jq '.weather[0]'
+{
+  "id": 500,
+  "main": "Rain",
+  "description": "light rain",
+  "icon": "10n"
+}
+
+chrisbs@yourtilde:10:[~/code/weather]: cat current.txt | jq '.weather[1]'
+{
+  "id": 701,
+  "main": "Mist",
+  "description": "mist",
+  "icon": "50n"
+}
+
+chrisbs@yourtilde:10:[~/code/weather]: cat current.txt | jq '.weather[3]'
+null
+
+chrisbs@yourtilde:10:[~/code/weather]: cat current.txt | jq '.main.temp'
+41.7
+
