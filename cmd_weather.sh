@@ -46,13 +46,15 @@ function get_current_cond() {
     current_temp=$(echo $current_weather | jq '.main.temp') 
     current_temp+=$'\xc2\xb0'
     current_temp+="F"
+
+    city_name=$(echo $current_weather | jq '.name' | tr -d '"')
 }
 
 #Display the weather
 function display_weather() {
     echo "***** Current Conditions"
     echo "************************"
-    echo $current_cond $current_temp
+    echo $current_cond $current_temp $city_name
 }
 
 get_current_weather
